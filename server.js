@@ -30,7 +30,7 @@ app.post('/webhook', async (req, res) => {
     let messages = [...conversations[from]]
     let finalText = ''
     while (true) {
-      const response = await anthropic.messages.create({ model: 'claude-sonnet-4-20250514', max_tokens: 1024, system: SYSTEM_PROMPT, tools: TOOLS, messages })
+      const response = await anthropic.messages.create({ model: 'claude-3-5-sonnet-20241022', max_tokens: 1024, system: SYSTEM_PROMPT, tools: TOOLS, messages })
       if (response.stop_reason === 'end_turn') { finalText = response.content.find(b => b.type === 'text')?.text || ''; break }
       if (response.stop_reason === 'tool_use') {
         const toolUseBlocks = response.content.filter(b => b.type === 'tool_use')
